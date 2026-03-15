@@ -2,7 +2,26 @@
 
 *v2 — Research & decision capture*
 
-Captures key takeaways from the current session and writes a note to the Thinking log. Auto-detects whether the session was **research/exploration** or a **decision**, and uses the appropriate template.
+Captures key takeaways from the current session and writes a note to a Thinking log. Auto-detects whether the session was **research/exploration** or a **decision**, and uses the appropriate template.
+
+## Setup
+
+Configure the output directory by setting `DONE_SKILL_OUTPUT_DIR` in your `CLAUDE.md`:
+
+```
+DONE_SKILL_OUTPUT_DIR=~/notes/thinking
+```
+
+If not set, notes are saved to `./thinking/` in the current working directory.
+
+You can also configure separate directories for work and personal topics:
+
+```
+DONE_SKILL_WORK_DIR=~/notes/work/thinking
+DONE_SKILL_PERSONAL_DIR=~/notes/personal/thinking
+```
+
+When both are set, the skill will classify the session as **work** or **personal** and save to the appropriate directory. When only `DONE_SKILL_OUTPUT_DIR` is set, all notes go to the same place.
 
 ## Arguments
 
@@ -27,16 +46,14 @@ Otherwise, analyze the conversation to auto-detect:
 - **Mixed** — if the session contains both research and a decision, prefer the **Decision** template. The research naturally becomes the Context and Rationale sections.
 - **Genuinely ambiguous** — ask the user: "This session had both research and decision elements. Should I capture this as a decision or research note?"
 
-### Step 2: Determine Topic Bucket
+### Step 2: Determine Output Directory
 
-Classify the session topic to decide where the note is saved:
+If separate work/personal directories are configured (`DONE_SKILL_WORK_DIR` and `DONE_SKILL_PERSONAL_DIR`), classify the session topic:
 
-- **Hiro** — directly related to Hiro Finance (product, engineering, hiring, org, strategy, customers, investors, metrics, etc.)
+- **Work** — directly related to your job, company, product, engineering, hiring, customers, etc.
 - **Personal** — everything else (personal research, family, investments, health, side projects, general knowledge, etc.)
 
-This sets the output directory:
-- Hiro → `~/SecondBrain/2Hiro/Thinking/`
-- Personal → `~/SecondBrain/1Personal/Thinking/`
+Save to the matching directory. If only a single `DONE_SKILL_OUTPUT_DIR` is configured (or no config exists), save all notes there.
 
 ### Step 3: Extract Content
 
@@ -61,7 +78,7 @@ Review the full conversation and extract the relevant content for the detected t
 
 ### Step 4: Write the Note
 
-Create a new file in the bucket-determined directory (from Step 2) named: `YYYY-MM-DD - Topic Name.md`
+Create a new file in the output directory named: `YYYY-MM-DD - Topic Name.md`
 
 Use Title Case with spaces for the topic name (e.g., `2026-02-24 - EV Charging Selection.md`, `2026-02-26 - Trust Signing Authority Research.md`).
 
@@ -132,7 +149,7 @@ Display a brief confirmation:
 ```
 CAPTURED: [Topic Name]
 Type: [Decision/Research]
-Saved to: [2Hiro/Thinking or 1Personal/Thinking]/[filename].md
+Saved to: [directory]/[filename].md
 ```
 
 If there are follow-ups, add:

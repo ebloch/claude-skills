@@ -18,4 +18,15 @@ Copy a skill folder into your project's `.claude/skills/` directory:
 cp -r done/ /path/to/your/project/.claude/skills/done/
 ```
 
-Then update the vault paths in `SKILL.md` to match your setup.
+Then configure the output directory in your `CLAUDE.md`:
+
+```
+DONE_SKILL_OUTPUT_DIR=~/notes/thinking
+```
+
+Or set separate work/personal directories:
+
+```
+DONE_SKILL_WORK_DIR=~/notes/work/thinking
+DONE_SKILL_PERSONAL_DIR=~/notes/personal/thinking
+```
