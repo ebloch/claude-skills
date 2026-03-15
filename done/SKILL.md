@@ -6,22 +6,12 @@ Captures key takeaways from the current session and writes a note to a Thinking 
 
 ## Setup
 
-Configure the output directory by setting `DONE_SKILL_OUTPUT_DIR` in your `CLAUDE.md`:
+By default, notes are saved to separate work and personal directories inside `~/SecondBrain/`:
 
-```
-DONE_SKILL_OUTPUT_DIR=~/notes/thinking
-```
+- **Work** → `~/SecondBrain/2Work/Thinking/`
+- **Personal** → `~/SecondBrain/1Personal/Thinking/`
 
-If not set, notes are saved to `./thinking/` in the current working directory.
-
-You can also configure separate directories for work and personal topics:
-
-```
-DONE_SKILL_WORK_DIR=~/notes/work/thinking
-DONE_SKILL_PERSONAL_DIR=~/notes/personal/thinking
-```
-
-When both are set, the skill will classify the session as **work** or **personal** and save to the appropriate directory. When only `DONE_SKILL_OUTPUT_DIR` is set, all notes go to the same place.
+The skill classifies each session as work or personal and saves to the appropriate directory.
 
 ## Arguments
 
@@ -48,12 +38,10 @@ Otherwise, analyze the conversation to auto-detect:
 
 ### Step 2: Determine Output Directory
 
-If separate work/personal directories are configured (`DONE_SKILL_WORK_DIR` and `DONE_SKILL_PERSONAL_DIR`), classify the session topic:
+Classify the session topic to decide where the note is saved:
 
-- **Work** — directly related to your job, company, product, engineering, hiring, customers, etc.
-- **Personal** — everything else (personal research, family, investments, health, side projects, general knowledge, etc.)
-
-Save to the matching directory. If only a single `DONE_SKILL_OUTPUT_DIR` is configured (or no config exists), save all notes there.
+- **Work** → `~/SecondBrain/2Work/Thinking/` — directly related to your job, company, product, engineering, hiring, customers, etc.
+- **Personal** → `~/SecondBrain/1Personal/Thinking/` — everything else (personal research, family, investments, health, side projects, general knowledge, etc.)
 
 ### Step 3: Extract Content
 
